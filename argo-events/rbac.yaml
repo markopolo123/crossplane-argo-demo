@@ -1,0 +1,147 @@
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-events-crossplane-role
+rules:
+  - apiGroups: ["repo.github.upbound.io"]
+    resources: ["repositories", "repository"]
+    verbs: ["get", "list", "watch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-events-crossplane-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: ClusterRole
+  name: argo-events-crossplane-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: Role
+metadata:
+  namespace: argo-events
+  name: create-pods-role
+rules:
+  - apiGroups: [""]
+    resources: ["pods"]
+    verbs: ["get", "list", "watch", "create", "patch"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: RoleBinding
+metadata:
+  name: create-pods-rolebinding
+  namespace: argo-events
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: Role
+  name: create-pods-role
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: argo-workflow-role
+rules:
+  - apiGroups: ["argoproj.io"]
+    resources: ["workflows"]
+    verbs: ["create", "get", "list", "watch", "update", "delete"]
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: argo-workflow-rolebinding
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: ClusterRole
+  name: argo-workflow-role
+  apiGroup: rbac.authorization.k8s.io
+---
+# https://argo-workflows.readthedocs.io/en/latest/workflow-rbac/
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: agent
+  annotations:
+    workflows.argoproj.io/description: |
+      This is the minimum recommended permissions needed if you want to use the agent, e.g. for HTTP or plugin templates.
+
+      If <= v3.2 you must replace `workflowtasksets/status` with `patch workflowtasksets`.
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflowtasksets
+    verbs:
+      - list
+      - watch
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflowtasksets/status
+    verbs:
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: agent-rolebinding
+  namespace: argo-events
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: ClusterRole
+  name: agent
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRole
+metadata:
+  name: executor
+rules:
+  - apiGroups:
+      - argoproj.io
+    resources:
+      - workflowtaskresults
+    verbs:
+      - create
+      - patch
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: executor-rolebinding
+  namespace: argo-events
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: ClusterRole
+  name: executor
+  apiGroup: rbac.authorization.k8s.io
+---
+apiVersion: rbac.authorization.k8s.io/v1
+kind: ClusterRoleBinding
+metadata:
+  name: admin-rolebinding
+  namespace: argo-events
+subjects:
+  - kind: ServiceAccount
+    name: default
+    namespace: argo-events
+roleRef:
+  kind: ClusterRole
+  name: cluster-admin
+  apiGroup: rbac.authorization.k8s.io

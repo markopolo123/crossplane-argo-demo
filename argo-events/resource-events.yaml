@@ -1,0 +1,19 @@
+apiVersion: argoproj.io/v1alpha1
+kind: EventSource
+metadata:
+  name: crossplane-event-source
+  namespace: argo-events
+spec:
+  resource:
+    example:
+      eventTypes:
+        - ADD
+      group: "repo.github.upbound.io"
+      version: "v1alpha1"
+      resource: "repositories"
+      # Specify the namespace of the Crossplane resources
+      # filter:
+      #   fields:
+      #     - key: "status.conditions[?(@.type=='Synced')].status"
+      #       operator: Equals
+      #       value: "True"

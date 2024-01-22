@@ -1,0 +1,18 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: validate-repo-visibility-and-name
+spec:
+  validationFailureAction: Enforce
+  background: true
+  rules:
+    - name: check-repo-visibility-and-name
+      match:
+        resources:
+          kinds:
+            - repo.github.upbound.io/v1alpha1/Repository
+      validate:
+        message: "The repository visibility must be private and name must start with 'example-' or 'experiment-'."
+        pattern:
+          metadata:
+            name: "example-* | experiment-*"

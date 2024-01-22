@@ -1,0 +1,16 @@
+apiVersion: kyverno.io/v1
+kind: ClusterPolicy
+metadata:
+  name: ensure-private-repository
+spec:
+  rules:
+    - name: set-visibility-private
+      match:
+        resources:
+          kinds:
+            - repo.github.upbound.io/v1alpha1/Repository
+      mutate:
+        patchStrategicMerge:
+          spec:
+            forProvider:
+              visibility: "private"

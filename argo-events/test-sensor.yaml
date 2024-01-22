@@ -1,0 +1,61 @@
+apiVersion: argoproj.io/v1alpha1
+kind: Sensor
+metadata:
+  name: event-logger-sensor
+  namespace: argo-events
+spec:
+  dependencies:
+    - name: github-repo-created
+      eventSourceName: crossplane-event-source
+      eventName: example
+  triggers:
+    - template:
+        name: argo-workflow-trigger
+        argoWorkflow:
+          operation: submit
+          source:
+            resource:
+              apiVersion: argoproj.io/v1alpha1
+              kind: Workflow
+              metadata:
+                generateName: trigger-github-action-
+                namespace: argo-events
+              spec:
+                entrypoint: main
+                arguments:
+                  parameters:
+                    - name: repoName
+                      value: "example-repository" # This value will get overridden by the event payload
+                templates:
+                  - name: main
+                    steps:
+                      - - name: trigger-github-action
+                          template: http
+                          arguments:
+                            parameters:
+                              - name: repoName
+                                value: "{{workflow.parameters.repoName}}"
+                  - name: http
+                    inputs:
+                      parameters:
+                        - name: repoName
+                    http:
+                      url: "https://api.github.com/repos/markopolo123/{{inputs.parameters.repoName}}/actions/workflows/demo.yaml/dispatches"
+                      method: "POST"
+                      headers:
+                        - name: Authorization
+                          valueFrom:
+                            secretKeyRef:
+                              name: github-token
+                              key: token
+                        - name: Accept
+                          value: "application/vnd.github.v3+json"
+                        - name: X-GitHub-Api-Version
+                          value: "2022-11-28"
+                      body: '{"ref": "main"}'
+                      # successCondition: response.statusCode == 200
+          parameters:
+            - src:
+                dependencyName: github-repo-created
+                dataKey: body.metadata.name
+              dest: spec.arguments.parameters.0.value

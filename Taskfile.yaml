@@ -1,0 +1,68 @@
+# https://taskfile.dev
+
+version: "3"
+
+vars:
+  CLUSTER: argo-crossplane-demo
+
+tasks:
+  create:
+    desc: Create a kind cluster
+    cmds:
+      - kind create cluster --name "{{.CLUSTER}}"
+    silent: true
+  delete:
+    desc: Delete a kind cluster
+    cmds:
+      - kind delete cluster --name "{{.CLUSTER}}"
+    silent: true
+  context:
+    desc: Set the kubectl context to the kind cluster
+    cmds:
+      - kubectl cluster-info --context kind-{{.CLUSTER}}
+      - kubectl config use-context kind-{{.CLUSTER}}
+  bootstrap:
+    desc: bootstrap the cluster
+    deps:
+      - context
+    cmds:
+      - helm repo add argo https://argoproj.github.io/argo-helm
+      - helm repo add crossplane-stable https://charts.crossplane.io/stable
+      - helm repo add kyverno https://kyverno.github.io/kyverno/
+      - helm repo update
+      - helm install crossplane --namespace crossplane-system --create-namespace crossplane-stable/crossplane
+      - helm install argo-events argo/argo-events -n argo-events --create-namespace
+      - helm install argo-workflows argo/argo-workflows -f helm-values/argo-workflows-values.yaml -n argo-events --create-namespace
+  argo-events:
+    desc: Install Argo Event bus
+    deps:
+      - context
+    cmds:
+      - kubectl apply -n argo-events -f https://raw.githubusercontent.com/argoproj/argo-events/stable/examples/eventbus/native.yaml
+  argo-config:
+    desc: Install Argo config
+    deps:
+      - context
+    cmds:
+      - envsubst < argo-events/argo-secret.yaml | kubectl apply -f -
+      - kubectl apply -f argo-events/rbac.yaml
+      - kubectl apply -f argo-events/test-sensor.yaml
+      - kubectl apply -f argo-events/resource-events.yaml
+  crossplane-provider:
+    desc: Install Crossplane github provider
+    deps:
+      - context
+    cmds:
+      - kubectl apply -f crossplane/github-provider.yaml
+  crossplane-github-config:
+    desc: Install Crossplane github provider config
+    deps:
+      - context
+    cmds:
+      - envsubst < crossplane/provider-config.yaml | kubectl apply -f -
+  kyverno:
+    desc: Install Kyverno
+    deps:
+      - context
+    cmds:
+      - helm install kyverno kyverno/kyverno -n kyverno --create-namespace
