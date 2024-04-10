@@ -29,12 +29,27 @@ spec:
                 templates:
                   - name: main
                     steps:
+                      - - name: debug-print
+                          template: debug-print
+                          arguments:
+                            parameters:
+                              - name: repoName
+                                value: "{{workflow.parameters.repoName}}"
                       - - name: trigger-github-action
                           template: http
                           arguments:
                             parameters:
                               - name: repoName
                                 value: "{{workflow.parameters.repoName}}"
+                  - name: debug-print
+                    inputs:
+                      parameters:
+                        - name: repoName
+                    container:
+                      image: alpine:latest
+                      command: [sh, -c]
+                      args:
+                        ["echo Repo Name is : {{inputs.parameters.repoName}}"]
                   - name: http
                     inputs:
                       parameters:
@@ -53,7 +68,6 @@ spec:
                         - name: X-GitHub-Api-Version
                           value: "2022-11-28"
                       body: '{"ref": "main"}'
-                      # successCondition: response.statusCode == 200
           parameters:
             - src:
                 dependencyName: github-repo-created

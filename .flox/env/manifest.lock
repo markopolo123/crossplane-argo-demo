@@ -1,0 +1,280 @@
+{
+  "lockfile-version": 0,
+  "manifest": {
+    "hook": {},
+    "install": {
+      "d2": {
+        "pkg-path": "d2"
+      },
+      "gettext": {
+        "pkg-path": "gettext"
+      },
+      "go-task": {
+        "pkg-path": "go-task"
+      },
+      "kind": {
+        "pkg-path": "kind"
+      },
+      "kubectl": {
+        "pkg-path": "kubectl"
+      },
+      "kubernetes-helm": {
+        "pkg-path": "kubernetes-helm"
+      },
+      "kyverno": {
+        "pkg-path": "kyverno"
+      }
+    },
+    "options": {
+      "systems": [
+        "aarch64-darwin"
+      ]
+    },
+    "profile": {},
+    "registry": {
+      "defaults": {
+        "subtrees": null
+      },
+      "inputs": {
+        "nixpkgs": {
+          "from": {
+            "owner": "NixOS",
+            "ref": "release-23.11",
+            "repo": "nixpkgs",
+            "type": "github"
+          },
+          "subtrees": [
+            "legacyPackages"
+          ]
+        }
+      },
+      "priority": [
+        "nixpkgs"
+      ]
+    },
+    "vars": {}
+  },
+  "packages": {
+    "aarch64-darwin": {
+      "d2": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "d2"
+        ],
+        "info": {
+          "broken": false,
+          "description": "A modern diagram scripting language that turns text to diagrams",
+          "license": "MPL-2.0",
+          "pname": "d2",
+          "unfree": false,
+          "version": "0.6.1"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "gettext": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "gettext"
+        ],
+        "info": {
+          "broken": false,
+          "description": "Well integrated set of translation tools and documentation",
+          "license": "GPL-2.0-or-later",
+          "pname": "gettext",
+          "unfree": false,
+          "version": "0.21.1"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "go-task": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "go-task"
+        ],
+        "info": {
+          "broken": false,
+          "description": "A task runner / simpler Make alternative written in Go",
+          "license": "MIT",
+          "pname": "go-task",
+          "unfree": false,
+          "version": "3.31.0"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "kind": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "kind"
+        ],
+        "info": {
+          "broken": false,
+          "description": "Kubernetes IN Docker - local clusters for testing Kubernetes",
+          "license": "Apache-2.0",
+          "pname": "kind",
+          "unfree": false,
+          "version": "0.20.0"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "kubectl": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "kubectl"
+        ],
+        "info": {
+          "broken": false,
+          "description": "Kubernetes CLI",
+          "license": "Apache-2.0",
+          "pname": "kubectl",
+          "unfree": false,
+          "version": "1.28.7"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "kubernetes-helm": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "kubernetes-helm"
+        ],
+        "info": {
+          "broken": false,
+          "description": "A package manager for kubernetes",
+          "license": "Apache-2.0",
+          "pname": "kubernetes-helm",
+          "unfree": false,
+          "version": "3.13.2"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      },
+      "kyverno": {
+        "attr-path": [
+          "legacyPackages",
+          "aarch64-darwin",
+          "kyverno"
+        ],
+        "info": {
+          "broken": false,
+          "description": "Kubernetes Native Policy Management",
+          "license": "Apache-2.0",
+          "pname": "kyverno",
+          "unfree": false,
+          "version": "1.10.5"
+        },
+        "input": {
+          "attrs": {
+            "lastModified": 1712735478,
+            "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+            "owner": "NixOS",
+            "repo": "nixpkgs",
+            "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+            "type": "github"
+          },
+          "fingerprint": "ccdc45283fab60b0b21d81dc8228d35b6f60b33b7e4b8fcf616d97e8606b1299",
+          "url": "github:NixOS/nixpkgs/a48721e9b7a55253eb0a4d79b6806e97f11a9c77"
+        },
+        "priority": 5
+      }
+    }
+  },
+  "registry": {
+    "defaults": {
+      "subtrees": null
+    },
+    "inputs": {
+      "nixpkgs": {
+        "from": {
+          "lastModified": 1712735478,
+          "narHash": "sha256-EV0bJ+VlG93/4nLYjFy5nvDPP/vB2ZoWYJX2AzI/QHM=",
+          "owner": "NixOS",
+          "repo": "nixpkgs",
+          "rev": "a48721e9b7a55253eb0a4d79b6806e97f11a9c77",
+          "type": "github"
+        },
+        "subtrees": [
+          "legacyPackages"
+        ]
+      }
+    },
+    "priority": [
+      "nixpkgs"
+    ]
+  }
+}
